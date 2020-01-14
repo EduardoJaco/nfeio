@@ -1,8 +1,17 @@
 package nfeio
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
+	"fmt"
+	"net/http"
+	"os"
+	"strconv"
+	"strings"
 	"time"
+
+	"github.com/seriallink/go-curl"
 )
 
 func (c *Client) GetCompany(idOrTaxNumber string) (response CompanyResponse, err error) {
@@ -30,92 +39,174 @@ func (c *Client) DeleteCompany(id string) (err error) {
 	return
 }
 
-//func (c *Client) UploadCertificate(id, file, password string) error {
+//func (c *Client) UploadCertificate(id, path, password string) (err error) {
 //
 //	var (
-//		header []string
-//		body   bytes.Buffer
-//		erm    ErrMessage
+//		file *os.File
+//		body bytes.Buffer
+//		response *http.Response
+//		erm  ErrMessage
 //	)
 //
-//	// init curl
-//	easy := curl.EasyInit()
-//
-//	// close curl
-//	defer easy.Cleanup()
-//
-//	// set curl opt
-//	_ = easy.Setopt(curl.OPT_URL, fmt.Sprintf("%scompanies/%s/certificate", baseUrl, id))
-//	_ = easy.Setopt(curl.OPT_SSL_VERIFYPEER, false)
-//
-//	// enable on debug mode
-//	if os.Getenv("debug") == "true" {
-//		_ = easy.Setopt(curl.OPT_VERBOSE, true)
+//	// read file
+//	if file, err = os.Open(path); err != nil {
+//		return
 //	}
 //
-//	// set header
-//	_ = easy.Setopt(curl.OPT_HTTPHEADER, []string{
-//		"Authorization: " + c.ApiKey,
-//		"Content-Type: multipart/form-data",
-//		"Accept: application/json",
-//	})
+//	// close file
+//	defer file.Close()
 //
-//	// init form
-//	form := curl.NewForm()
+//	// create form writer
+//	w := multipart.NewWriter(&body)
 //
-//	// add form fields
-//	_ = form.AddFile("file", file)
-//	_ = form.Add("password", password)
+//	// set password
+//	p, _ := w.CreateFormField("password")
+//	if _, err = p.Write([]byte(password)); err != nil {
+//		return
+//	}
 //
-//	// define http method
-//	_ = easy.Setopt(curl.OPT_HTTPPOST, form)
+//	// set file
+//	f, _ := w.CreateFormFile("file", filepath.Base(file.Name()))
+//	if _, err = io.Copy(f, file); err != nil {
+//		return
+//	}
 //
-//	// print upload progress
-//	//_ = easy.Setopt(curl.OPT_NOPROGRESS, false)
-//	//_ = easy.Setopt(curl.OPT_PROGRESSFUNCTION, func(dltotal, dlnow, ultotal, ulnow float64, _ interface{}) bool {
-//	//	fmt.Printf("Download %3.2f%%, Uploading %3.2f%%\r", dlnow/dltotal*100, ulnow/ultotal*100)
-//	//	return true
-//	//})
+//	// close writer
+//	defer w.Close()
 //
-//	// get response body (callback)
-//	_ = easy.Setopt(curl.OPT_WRITEFUNCTION, func(buf []byte, data interface{}) bool {
-//		body.Write(buf)
-//		return true
-//	})
+//	spew.Dump(body.Len())
 //
-//	// get response header (callback)
-//	_ = easy.Setopt(curl.OPT_HEADERFUNCTION, func(buf []byte, data interface{}) bool {
-//		header = append(header, strings.Replace(string(buf), "\r\n", "", -1))
-//		return true
-//	})
+//	// set request
+//	request, _ := http.NewRequest(http.MethodPost, fmt.Sprintf("%scompanies/%s/certificate", baseUrl, id), &body)
+//	request.Header.Add("Authorization", c.ApiKey)
+//	request.Header.Add("Content-Type", "multipart/form-data")
+//	request.Header.Add("Content-Length", fmt.Sprint(body.Len()))
+//	request.Header.Add("Accept", "*/*")
+//	request.Header.Add("Accept-Encoding", "gzip, deflate")
+//	request.Header.Add("Connection", "keep-alive")
+//	request.Header.Add("Cache-Control", "no-cache")
+//	request.Header.Add("Host", "api.nfe.io")
 //
-//	// post certificate
-//	if err := easy.Perform(); err != nil {
+//	client := &http.Client{
+//		Transport: &http.Transport{
+//			TLSClientConfig: &tls.Config{
+//				InsecureSkipVerify: true,
+//			},
+//		},
+//	}
+//
+//	if response, err = client.Do(request); err != nil {
+//		return
+//	}
+//
+//	defer response.Body.Close()
+//
+//	// read response
+//	data, err := ioutil.ReadAll(response.Body)
+//	if err != nil {
 //		return err
 //	}
 //
-//	// check error message
-//	if err := json.NewDecoder(&body).Decode(&erm); err == nil && erm.Message != "" {
+//	// check for error message
+//	if err = json.Unmarshal(data, erm); err == nil && erm.Message != "" {
 //		return erm
 //	}
 //
-//	// check response status code
-//	if len(header) < 1 || !strings.Contains(header[0], "200") {
-//
-//		// get status code
-//		data := strings.Split(strings.Trim(header[0], " "), " ")
-//
-//		// parse to int
-//		code, _ := strconv.Atoi(data[1])
-//
-//		// return error code
-//		return errors.New(http.StatusText(code))
-//
+//	// verify status code
+//	if NotIn(response.StatusCode, http.StatusOK, http.StatusCreated, http.StatusAccepted) {
+//		return errors.New(response.Status)
 //	}
 //
 //	return nil
 //
 //}
+
+func (c *Client) UploadCertificate(id, file, password string) error {
+
+	var (
+		header []string
+		body   bytes.Buffer
+		erm    ErrMessage
+	)
+
+	// init curl
+	easy := curl.EasyInit()
+
+	// close curl
+	defer easy.Cleanup()
+
+	// set curl opt
+	_ = easy.Setopt(curl.OPT_URL, fmt.Sprintf("%scompanies/%s/certificate", baseUrl, id))
+	_ = easy.Setopt(curl.OPT_SSL_VERIFYPEER, false)
+
+	// enable on debug mode
+	if os.Getenv("debug") == "true" {
+		_ = easy.Setopt(curl.OPT_VERBOSE, true)
+	}
+
+	// set header
+	_ = easy.Setopt(curl.OPT_HTTPHEADER, []string{
+		"Authorization: " + c.ApiKey,
+		"Content-Type: multipart/form-data",
+		"Accept: application/json",
+	})
+
+	// init form
+	form := curl.NewForm()
+
+	// add form fields
+	_ = form.AddFile("file", file)
+	_ = form.Add("password", password)
+
+	// define http method
+	_ = easy.Setopt(curl.OPT_HTTPPOST, form)
+
+	// print upload progress
+	//_ = easy.Setopt(curl.OPT_NOPROGRESS, false)
+	//_ = easy.Setopt(curl.OPT_PROGRESSFUNCTION, func(dltotal, dlnow, ultotal, ulnow float64, _ interface{}) bool {
+	//	fmt.Printf("Download %3.2f%%, Uploading %3.2f%%\r", dlnow/dltotal*100, ulnow/ultotal*100)
+	//	return true
+	//})
+
+	// get response body (callback)
+	_ = easy.Setopt(curl.OPT_WRITEFUNCTION, func(buf []byte, data interface{}) bool {
+		body.Write(buf)
+		return true
+	})
+
+	// get response header (callback)
+	_ = easy.Setopt(curl.OPT_HEADERFUNCTION, func(buf []byte, data interface{}) bool {
+		header = append(header, strings.Replace(string(buf), "\r\n", "", -1))
+		return true
+	})
+
+	// post certificate
+	if err := easy.Perform(); err != nil {
+		return err
+	}
+
+	// check error message
+	if err := json.NewDecoder(&body).Decode(&erm); err == nil && erm.Message != "" {
+		return erm
+	}
+
+	// check response status code
+	if len(header) < 1 || !strings.Contains(header[0], "200") {
+
+		// get status code
+		data := strings.Split(strings.Trim(header[0], " "), " ")
+
+		// parse to int
+		code, _ := strconv.Atoi(data[1])
+
+		// return error code
+		return errors.New(http.StatusText(code))
+
+	}
+
+	return nil
+
+}
 
 type CompanyResponse struct {
 	Data Company `json:"companies"`
