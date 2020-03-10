@@ -23,3 +23,13 @@ func NotIn(value interface{}, list ...interface{}) bool {
 	return true
 
 }
+
+func Ternary(condition bool, x, y interface{}) interface{} {
+
+	if condition {
+		return x
+	}
+
+	return y
+
+}

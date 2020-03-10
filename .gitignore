@@ -10,3 +10,9 @@
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+
+address_test.go
+client_test.go
+company_test.go
+invoice_test.go
+statetax_test.go

@@ -41,3 +41,18 @@ type Borrower struct {
 	CreatedOn          *time.Time  `json:"createdOn,omitempty"`
 	ModifiedOn         *time.Time  `json:"modifiedOn,omitempty"`
 }
+
+type Buyer struct {
+	Id                 string      `json:"id,omitempty"`
+	ParentId           string      `json:"parentId,omitempty"`
+	Name               string      `json:"name,omitempty"`
+	Email              string      `json:"email,omitempty"`
+	FederalTaxNumber   json.Number `json:"federalTaxNumber,omitempty"`
+	StateTaxNumber     json.Number `json:"stateTaxNumber,omitempty"`
+	MunicipalTaxNumber json.Number `json:"municipalTaxNumber,omitempty"`
+	Status             string      `json:"status,omitempty"`
+	Type               string      `json:"type,omitempty"`
+	Address            *Address    `json:"address,omitempty"`
+	CreatedOn          *time.Time  `json:"createdOn,omitempty"`
+	ModifiedOn         *time.Time  `json:"modifiedOn,omitempty"`
+}

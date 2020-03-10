@@ -25,8 +25,21 @@ func (c *Client) GetCompanies(pageCount, pageIndex int64) (response CompaniesRes
 }
 
 func (c *Client) AddCompany(company *Company) (response CompanyResponse, err error) {
-	err = c.Post("companies", company, nil, &response)
+
+	var params interface{}
+
+	if c.apiUrl == ServiceUrl {
+		params = company
+	} else {
+		params = map[string]interface{}{
+			"company": company,
+		}
+	}
+
+	err = c.Post("companies", params, nil, &response)
+
 	return
+
 }
 
 func (c *Client) SetCompany(company *Company) (response CompanyResponse, err error) {
@@ -77,8 +90,8 @@ func (c *Client) DeleteCompany(id string) (err error) {
 //	spew.Dump(body.Len())
 //
 //	// set request
-//	request, _ := http.NewRequest(http.MethodPost, fmt.Sprintf("%scompanies/%s/certificate", baseUrl, id), &body)
-//	request.Header.Add("Authorization", c.ApiKey)
+//	request, _ := http.NewRequest(http.MethodPost, fmt.Sprintf("%scompanies/%s/certificate", c.apiUrl, id), &body)
+//	request.Header.Add("Authorization", c.apiKey)
 //	request.Header.Add("Content-Type", "multipart/form-data")
 //	request.Header.Add("Content-Length", fmt.Sprint(body.Len()))
 //	request.Header.Add("Accept", "*/*")
@@ -87,7 +100,7 @@ func (c *Client) DeleteCompany(id string) (err error) {
 //	request.Header.Add("Cache-Control", "no-cache")
 //	request.Header.Add("Host", "api.nfe.io")
 //
-//	client := &http.Client{
+//	service := &http.Client{
 //		Transport: &http.Transport{
 //			TLSClientConfig: &tls.Config{
 //				InsecureSkipVerify: true,
@@ -95,7 +108,7 @@ func (c *Client) DeleteCompany(id string) (err error) {
 //		},
 //	}
 //
-//	if response, err = client.Do(request); err != nil {
+//	if response, err = service.Do(request); err != nil {
 //		return
 //	}
 //
@@ -136,7 +149,7 @@ func (c *Client) UploadCertificate(id, file, password string) error {
 	defer easy.Cleanup()
 
 	// set curl opt
-	_ = easy.Setopt(curl.OPT_URL, fmt.Sprintf("%scompanies/%s/certificate", baseUrl, id))
+	_ = easy.Setopt(curl.OPT_URL, fmt.Sprintf("%scompanies/%s/%s", c.apiUrl, id, Ternary(c.apiUrl == ServiceUrl, "certificate", "certificates")))
 	_ = easy.Setopt(curl.OPT_SSL_VERIFYPEER, false)
 
 	// enable on debug mode
@@ -146,7 +159,7 @@ func (c *Client) UploadCertificate(id, file, password string) error {
 
 	// set header
 	_ = easy.Setopt(curl.OPT_HTTPHEADER, []string{
-		"Authorization: " + c.ApiKey,
+		"Authorization: " + c.apiKey,
 		"Content-Type: multipart/form-data",
 		"Accept: application/json",
 	})
@@ -209,7 +222,9 @@ func (c *Client) UploadCertificate(id, file, password string) error {
 }
 
 type CompanyResponse struct {
-	Data Company `json:"companies"`
+	Data      Company
+	Company   Company `json:"company"`
+	Companies Company `json:"companies"`
 }
 
 type CompaniesResponse struct {
@@ -252,4 +267,29 @@ type Certificate struct {
 	Status     string    `json:"status,omitempty"`
 	ModifiedOn time.Time `json:"modifiedOn,omitempty"`
 	ExpiresOn  time.Time `json:"expiresOn,omitempty"`
+}
+
+// only to avoid recursion in UnmarshalJSON below
+type cr CompanyResponse
+
+// override default json.Unmarshal
+func (c *CompanyResponse) UnmarshalJSON(b []byte) (err error) {
+
+	aux := cr{}
+
+	if err = json.Unmarshal(b, &aux); err == nil {
+
+		*c = CompanyResponse(aux)
+
+		if c.Company.Id != "" {
+			c.Data = c.Company
+		}
+
+		if c.Companies.Id != "" {
+			c.Data = c.Companies
+		}
+
+	}
+
+	return nil
 }

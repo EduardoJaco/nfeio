@@ -6,34 +6,41 @@ import (
 	"time"
 )
 
+func (c *Client) getInvoicePath() string {
+	if c.apiUrl == ServiceUrl {
+		return "serviceinvoices"
+	}
+	return "productinvoices"
+}
+
 func (c *Client) GetInvoice(idCompany, idInvoice string) (response Invoice, err error) {
-	err = c.Get(fmt.Sprintf("companies/%s/serviceinvoices/%s", idCompany, idInvoice), nil, nil, &response)
+	err = c.Get(fmt.Sprintf("companies/%s/%s/%s", idCompany, c.getInvoicePath(), idInvoice), nil, nil, &response)
 	return
 }
 
 func (c *Client) GetInvoices(idCompany string, pageCount, pageIndex int64) (response InvoicesResponse, err error) {
-	err = c.Get(fmt.Sprintf("companies/%s/serviceinvoices", idCompany), Params{"pageCount": pageCount, "pageIndex": pageIndex}, nil, &response)
+	err = c.Get(fmt.Sprintf("companies/%s/%s", idCompany, c.getInvoicePath()), Params{"pageCount": pageCount, "pageIndex": pageIndex}, nil, &response)
 	return
 }
 
 func (c *Client) IssueInvoice(idCompany string, invoice *Invoice) (response Invoice, err error) {
-	err = c.Post(fmt.Sprintf("companies/%s/serviceinvoices", idCompany), invoice, nil, &response)
+	err = c.Post(fmt.Sprintf("companies/%s/%s", idCompany, c.getInvoicePath()), invoice, nil, &response)
 	return
 }
 
 func (c *Client) CancelInvoice(idCompany, idInvoice string) (response Invoice, err error) {
-	err = c.Delete(fmt.Sprintf("companies/%s/serviceinvoices/%s", idCompany, idInvoice), nil, nil, &response)
+	err = c.Delete(fmt.Sprintf("companies/%s/%s/%s", idCompany, c.getInvoicePath(), idInvoice), nil, nil, &response)
 	return
 }
 
 func (c *Client) DownloadPDF(idCompany, idInvoice string) (pdf []byte, err error) {
 	pdf = make([]byte, 0)
-	err = c.Get(fmt.Sprintf("companies/%s/serviceinvoices/%s/pdf", idCompany, idInvoice), nil, nil, &pdf)
+	err = c.Get(fmt.Sprintf("companies/%s/%s/%s/pdf", idCompany, c.getInvoicePath(), idInvoice), nil, nil, &pdf)
 	return
 }
 
 func (c *Client) DownloadXML(idCompany, idInvoice string) (xml string, err error) {
-	err = c.Get(fmt.Sprintf("companies/%s/serviceinvoices/%s/xml", idCompany, idInvoice), nil, nil, &xml)
+	err = c.Get(fmt.Sprintf("companies/%s/%s/%s/xml", idCompany, c.getInvoicePath(), idInvoice), nil, nil, &xml)
 	return
 }
 
@@ -84,6 +91,8 @@ type Invoice struct {
 	AmountNet                   float64         `json:"amountNet,omitempty"`
 	Provider                    *Provider       `json:"provider,omitempty"`
 	Borrower                    *Borrower       `json:"borrower,omitempty"`
+	Buyer                       *Buyer          `json:"buyer,omitempty"`
+	Items                       []Item          `json:"items,omitempty"`
 	ApproximateTax              *ApproximateTax `json:"approximateTax,omitempty"`
 	AdditionalInformation       string          `json:"additionalInformation,omitempty"`
 	CreatedOn                   *time.Time      `json:"createdOn,omitempty"`

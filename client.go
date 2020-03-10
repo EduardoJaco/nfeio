@@ -3,30 +3,35 @@ package nfeio
 import "strings"
 
 type Client struct {
-	ApiKey  string
-	OpenKey string
+	apiKey  string
+	openKey string
+	apiUrl  string
 }
 
-func NewClient(apiKey string, openKey string) *Client {
-	return &Client{ApiKey: apiKey, OpenKey: openKey}
+func NewClient(apiKey, openKey, apiUrl string) *Client {
+	return &Client{
+		apiKey:  apiKey,
+		openKey: openKey,
+		apiUrl:  apiUrl,
+	}
 }
 
 func (c *Client) GetAuthorization(path string) string {
 
 	if strings.Contains(path, "addresses") {
-		return c.OpenKey
+		return c.openKey
 	}
 
-	return c.ApiKey
+	return c.apiKey
 
 }
 
 func (c *Client) GetEndpoint(path string) string {
 
 	if strings.Contains(path, "addresses") {
-		return addressUrl
+		return AddressUrl
 	}
 
-	return baseUrl
+	return c.apiUrl
 
 }

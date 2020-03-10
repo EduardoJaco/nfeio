@@ -9,8 +9,9 @@ import (
 )
 
 const (
-	baseUrl    = "https://api.nfe.io/v1/"
-	addressUrl = "https://open.nfe.io/v1/"
+	ServiceUrl = "https://api.nfe.io/v1/"
+	ProductUrl = "https://api.nfse.io/v2/"
+	AddressUrl = "https://open.nfe.io/v1/"
 )
 
 // Map data por post in the request
@@ -76,9 +77,23 @@ func (c *Client) execute(method string, path string, params interface{}, headers
 		return erm
 	}
 
+	// init array of errors
+	errs := &ErrArray{}
+
+	// check for multiple errors
+	if err = json.Unmarshal(data, errs); err == nil && errs.Count() > 0 {
+		return errs
+	}
+
 	// verify status code
-	if NotIn(response.StatusCode, http.StatusOK, http.StatusCreated, http.StatusAccepted) {
+	if NotIn(response.StatusCode, http.StatusOK, http.StatusCreated, http.StatusAccepted, http.StatusNoContent) {
+
+		if len(data) > 0 {
+			return errors.New(string(data))
+		}
+
 		return errors.New(response.Status)
+
 	}
 
 	// some services have empty response
