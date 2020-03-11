@@ -44,6 +44,21 @@ func (c *Client) DownloadXML(idCompany, idInvoice string) (xml string, err error
 	return
 }
 
+func (c *Invoice) TotalAmount() (total float64) {
+
+	for _, item := range c.Items {
+
+		quantity, _ := item.Quantity.Float64()
+		unitamount, _ := item.UnitAmount.Float64()
+
+		total += quantity * unitamount
+
+	}
+
+	return
+
+}
+
 type InvoiceResponse struct {
 	Data Invoice `json:"serviceInvoices"`
 }
