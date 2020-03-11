@@ -31,6 +31,7 @@ type StateTax struct {
 	Type               string              `json:"type,omitempty"`
 	SecurityCredential *SecurityCredential `json:"securityCredential,omitempty"`
 	// response
+	Id         string        `json:"id,omitempty"`
 	CompanyId  string        `json:"companyId,omitempty"`
 	AccountId  string        `json:"accountId,omitempty"`
 	BatchId    json.Number   `json:"batchId,omitempty"`
