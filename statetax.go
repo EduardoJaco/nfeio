@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func (c *Client) AddStateTax(companyId string, stateTax *StateTax) (response CompaniesResponse, err error) {
+func (c *Client) AddStateTax(companyId string, stateTax *StateTax) (response StateTaxResponse, err error) {
 	err = c.Post(fmt.Sprintf("companies/%s/statetaxes", companyId), Params{"stateTax": stateTax}, nil, &response)
 	return
 }
