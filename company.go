@@ -43,8 +43,21 @@ func (c *Client) AddCompany(company *Company) (response CompanyResponse, err err
 }
 
 func (c *Client) SetCompany(company *Company) (response CompanyResponse, err error) {
-	err = c.Put("companies/"+company.Id, company, nil, &response)
+
+	var params interface{}
+
+	if c.apiUrl == ServiceUrl {
+		params = company
+	} else {
+		params = map[string]interface{}{
+			"company": company,
+		}
+	}
+
+	err = c.Put("companies/"+company.Id, params, nil, &response)
+
 	return
+
 }
 
 func (c *Client) DeleteCompany(id string) (err error) {
