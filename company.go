@@ -217,7 +217,7 @@ func (c *Client) UploadCertificate(id, file, password string) error {
 	}
 
 	// check response status code
-	if len(header) < 1 || NotIn(header[0], "100", "200") {
+	if len(header) < 1 || NotLikeAny(header[0], "100", "200") {
 
 		// get status code
 		data := strings.Split(strings.Trim(header[0], " "), " ")
