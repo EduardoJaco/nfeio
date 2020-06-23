@@ -83,8 +83,8 @@ type Invoice struct {
 	TaxationType                string                 `json:"taxationType,omitempty"`
 	IssuedOn                    *time.Time             `json:"issuedOn,omitempty"`
 	CancelledOn                 *time.Time             `json:"cancelledOn,omitempty"`
-	RpsSerialNumber             json.Number            `json:"rpsSerialNumber,omitempty"`
 	RpsNumber                   json.Number            `json:"rpsNumber,omitempty"`
+	RpsSerialNumber             string                 `json:"rpsSerialNumber,omitempty"`
 	CityServiceCode             string                 `json:"cityServiceCode,omitempty"`
 	FederalServiceCode          string                 `json:"federalServiceCode,omitempty"`
 	Description                 string                 `json:"description,omitempty"`
