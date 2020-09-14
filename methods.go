@@ -11,7 +11,7 @@ import (
 const (
 	ServiceUrl = "https://api.nfe.io/v1/"
 	ProductUrl = "https://api.nfse.io/v2/"
-	AddressUrl = "https://open.nfe.io/v1/"
+	AddressUrl = "https://address.api.nfe.io/v2/"
 )
 
 // Map data por post in the request
