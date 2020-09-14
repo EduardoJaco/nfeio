@@ -86,7 +86,7 @@ func (c *Client) execute(method string, path string, params interface{}, headers
 	}
 
 	// verify status code
-	if NotIn(response.StatusCode, http.StatusOK, http.StatusCreated, http.StatusAccepted, http.StatusNoContent) {
+	if NotIn(response.StatusCode, http.StatusOK, http.StatusCreated, http.StatusAccepted, http.StatusNoContent, http.StatusContinue) {
 
 		if len(data) > 0 {
 			return errors.New(string(data))

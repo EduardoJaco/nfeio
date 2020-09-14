@@ -11,9 +11,9 @@ type Provider struct {
 	Name                  string             `json:"name,omitempty"`
 	Email                 string             `json:"email,omitempty"`
 	TradeName             string             `json:"tradeName,omitempty"`
-	TaxRegime             json.Number        `json:"taxRegime,omitempty"`
-	SpecialTaxRegime      json.Number        `json:"specialTaxRegime,omitempty"`
-	LegalNature           json.Number        `json:"legalNature,omitempty"`
+	TaxRegime             interface{}        `json:"taxRegime,omitempty"`
+	SpecialTaxRegime      interface{}        `json:"specialTaxRegime,omitempty"`
+	LegalNature           interface{}        `json:"legalNature,omitempty"`
 	CompanyRegistryNumber json.Number        `json:"companyRegistryNumber,omitempty"`
 	RegionalTaxNumber     json.Number        `json:"regionalTaxNumber,omitempty"`
 	MunicipalTaxNumber    json.Number        `json:"municipalTaxNumber,omitempty"`

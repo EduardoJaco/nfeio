@@ -6,6 +6,11 @@ import (
 	"time"
 )
 
+func (c *Client) GetStateTaxes(companyId string) (response StateTaxesResponse, err error) {
+	err = c.Get(fmt.Sprintf("companies/%s/statetaxes", companyId), nil, nil, &response)
+	return
+}
+
 func (c *Client) AddStateTax(companyId string, stateTax *StateTax) (response StateTaxResponse, err error) {
 	err = c.Post(fmt.Sprintf("companies/%s/statetaxes", companyId), Params{"stateTax": stateTax}, nil, &response)
 	return
@@ -18,6 +23,10 @@ func (c *Client) DeleteStateTax(companyId, stateTaxId string) (err error) {
 
 type StateTaxResponse struct {
 	Data StateTax `json:"stateTax"`
+}
+
+type StateTaxesResponse struct {
+	Data []StateTax `json:"stateTaxes"`
 }
 
 type StateTax struct {
