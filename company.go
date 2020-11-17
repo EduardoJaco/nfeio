@@ -72,10 +72,10 @@ type Company struct {
 	Name                  string             `json:"name,omitempty"`
 	TradeName             string             `json:"tradeName,omitempty"`
 	Email                 string             `json:"email,omitempty"`
-	FederalTaxNumber      interface{}        `json:"federalTaxNumber,omitempty"`
-	RegionalTaxNumber     interface{}        `json:"regionalTaxNumber,omitempty"`
-	MunicipalTaxNumber    interface{}        `json:"municipalTaxNumber,omitempty"`
-	CompanyRegistryNumber interface{}        `json:"companyRegistryNumber,omitempty"`
+	FederalTaxNumber      json.Number        `json:"federalTaxNumber,omitempty"`
+	RegionalTaxNumber     json.Number        `json:"regionalTaxNumber,omitempty"`
+	MunicipalTaxNumber    json.Number        `json:"municipalTaxNumber,omitempty"`
+	CompanyRegistryNumber json.Number        `json:"companyRegistryNumber,omitempty"`
 	TaxRegime             interface{}        `json:"taxRegime,omitempty"`
 	SpecialTaxRegime      interface{}        `json:"specialTaxRegime,omitempty"`
 	LegalNature           interface{}        `json:"legalNature,omitempty"`
