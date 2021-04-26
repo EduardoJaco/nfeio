@@ -1,9 +1,12 @@
 package nfeio
 
-func (c *Client) SearchAddressByPostalCode(postalCode string) (response Address, err error) {
-	response.State = &State{}
+func (c *Client) SearchAddressByPostalCode(postalCode string) (response AddressResponse, err error) {
 	err = c.Get("addresses/"+postalCode, nil, nil, &response)
 	return
+}
+
+type AddressResponse struct {
+	Address Address `json:"address"`
 }
 
 type Address struct {
