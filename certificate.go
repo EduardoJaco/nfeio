@@ -5,13 +5,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
+	"io/ioutil"
+	"mime/multipart"
 	"net/http"
 	"os"
-	"strconv"
-	"strings"
+	"path/filepath"
 	"time"
-
-	"github.com/seriallink/go-curl"
 )
 
 func (c *Client) GetCertificates(id string) (response CertificatesResponse, err error) {
@@ -19,86 +19,93 @@ func (c *Client) GetCertificates(id string) (response CertificatesResponse, err 
 	return
 }
 
-func (c *Client) UploadCertificate(id, file, password string) error {
+func (c *Client) UploadCertificate(id, path, password string) (err error) {
 
 	var (
-		header []string
-		body   bytes.Buffer
-		erm    ErrMessage
+		file *os.File
+		part io.Writer
+		resp *http.Response
+		body []byte
 	)
 
-	// init curl
-	easy := curl.EasyInit()
+	// init request body
+	payload := &bytes.Buffer{}
 
-	// close curl
-	defer easy.Cleanup()
+	// create form writer
+	writer := multipart.NewWriter(payload)
 
-	// set curl opt
-	_ = easy.Setopt(curl.OPT_URL, fmt.Sprintf("%scompanies/%s/%s", c.apiUrl, id, Ternary(c.apiUrl == ServiceUrl, "certificate", "certificates")))
-	_ = easy.Setopt(curl.OPT_SSL_VERIFYPEER, false)
-
-	// enable on debug mode
-	if os.Getenv("debug") == "true" {
-		_ = easy.Setopt(curl.OPT_VERBOSE, true)
+	// open file
+	if file, err = os.Open(path); err != nil {
+		return
 	}
 
-	// set header
-	_ = easy.Setopt(curl.OPT_HTTPHEADER, []string{
-		"Authorization: " + c.apiKey,
-		"Content-Type: multipart/form-data",
-		"Accept: application/json",
-	})
+	// close file
+	defer file.Close()
 
-	// init form
-	form := curl.NewForm()
-
-	// add form fields
-	_ = form.AddFile("file", file)
-	_ = form.Add("password", password)
-
-	// define http method
-	_ = easy.Setopt(curl.OPT_HTTPPOST, form)
-
-	// print upload progress
-	//_ = easy.Setopt(curl.OPT_NOPROGRESS, false)
-	//_ = easy.Setopt(curl.OPT_PROGRESSFUNCTION, func(dltotal, dlnow, ultotal, ulnow float64, _ interface{}) bool {
-	//	fmt.Printf("Download %3.2f%%, Uploading %3.2f%%\r", dlnow/dltotal*100, ulnow/ultotal*100)
-	//	return true
-	//})
-
-	// get response body (callback)
-	_ = easy.Setopt(curl.OPT_WRITEFUNCTION, func(buf []byte, data interface{}) bool {
-		body.Write(buf)
-		return true
-	})
-
-	// get response header (callback)
-	_ = easy.Setopt(curl.OPT_HEADERFUNCTION, func(buf []byte, data interface{}) bool {
-		header = append(header, strings.Replace(string(buf), "\r\n", "", -1))
-		return true
-	})
-
-	// post certificate
-	if err := easy.Perform(); err != nil {
-		return err
+	// set file
+	if part, err = writer.CreateFormFile("file", filepath.Base(file.Name())); err != nil {
+		return
 	}
 
-	// check error message
-	if err := json.NewDecoder(&body).Decode(&erm); err == nil && erm.Message != "" {
+	// write file
+	if _, err = io.Copy(part, file); err != nil {
+		return
+	}
+
+	// set password
+	if err = writer.WriteField("password", password); err != nil {
+		return
+	}
+
+	// close writer
+	if err = writer.Close(); err != nil {
+		return
+	}
+
+	// set request
+	req, _ := http.NewRequest(http.MethodPost, fmt.Sprintf("%scompanies/%s/%s", c.apiUrl, id, Ternary(c.apiUrl == ServiceUrl, "certificate", "certificates")), payload)
+	req.Header.Add("Authorization", c.apiKey)
+	req.Header.Add("Content-Type", "multipart/form-data")
+	req.Header.Set("Content-Type", writer.FormDataContentType())
+	req.Header.Set("Accept", "application/json")
+
+	// do request
+	if resp, err = http.DefaultClient.Do(req); err != nil {
+		return
+	}
+
+	// read response
+	if body, err = ioutil.ReadAll(resp.Body); err != nil {
+		return
+	}
+
+	// close response
+	defer resp.Body.Close()
+
+	// init error response
+	erm := &ErrMessage{}
+
+	// check for error message
+	if err = json.Unmarshal(body, erm); err == nil && erm.Message != "" {
 		return erm
 	}
 
-	// check response status code
-	if len(header) < 1 || NotLikeAny(header[0], "100", "200") {
+	// init array of errors
+	errs := &ErrArray{}
 
-		// get status code
-		data := strings.Split(strings.Trim(header[0], " "), " ")
+	// check for multiple errors
+	if err = json.Unmarshal(body, errs); err == nil && errs.Count() > 0 {
+		return errs
+	}
 
-		// parse to int
-		code, _ := strconv.Atoi(data[1])
+	// verify status code
+	if NotIn(resp.StatusCode, http.StatusOK, http.StatusCreated, http.StatusAccepted, http.StatusNoContent, http.StatusContinue) {
 
-		// return error code
-		return errors.New(http.StatusText(code))
+		if len(body) > 0 {
+			return errors.New(string(body))
+		}
+
+		return errors.New(resp.Status)
 
 	}
 
