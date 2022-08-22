@@ -74,7 +74,7 @@ type Invoice struct {
 	FlowStatus                  string                 `json:"flowStatus,omitempty"`
 	FlowMessage                 string                 `json:"flowMessage,omitempty"`
 	BatchNumber                 json.Number            `json:"batchNumber,omitempty"`
-	BatchCheckNumber            json.Number            `json:"batchCheckNumber,omitempty"`
+	BatchCheckNumber            string                 `json:"batchCheckNumber,omitempty"`
 	Number                      json.Number            `json:"number,omitempty"`
 	CheckCode                   string                 `json:"checkCode,omitempty"`
 	Status                      string                 `json:"status,omitempty"`
