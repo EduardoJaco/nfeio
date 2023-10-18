@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7c03f6f-b624-4c37-bf52-f6c7c1f6b81b" name="Default Changelist" comment="fix MunicipalTaxNumber JsonNumber to String">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/person.go" beforeDir="false" afterPath="$PROJECT_DIR$/person.go" afterDir="false" />
-    </list>
+    <list default="true" id="e7c03f6f-b624-4c37-bf52-f6c7c1f6b81b" name="Default Changelist" comment="fix MunicipalTaxNumber JsonNumber to String" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
