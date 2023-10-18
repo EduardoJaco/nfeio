@@ -16,7 +16,7 @@ type Provider struct {
 	LegalNature           interface{}        `json:"legalNature,omitempty"`
 	CompanyRegistryNumber json.Number        `json:"companyRegistryNumber,omitempty"`
 	RegionalTaxNumber     json.Number        `json:"regionalTaxNumber,omitempty"`
-	MunicipalTaxNumber    json.Number        `json:"municipalTaxNumber,omitempty"`
+	MunicipalTaxNumber    string             `json:"municipalTaxNumber,omitempty"`
 	FederalTaxNumber      json.Number        `json:"federalTaxNumber,omitempty"`
 	IssRate               json.Number        `json:"issRate,omitempty"`
 	Status                string             `json:"status,omitempty"`
@@ -34,7 +34,7 @@ type Borrower struct {
 	Name               string      `json:"name,omitempty"`
 	Email              string      `json:"email,omitempty"`
 	FederalTaxNumber   json.Number `json:"federalTaxNumber,omitempty"`
-	MunicipalTaxNumber json.Number `json:"municipalTaxNumber,omitempty"`
+	MunicipalTaxNumber string      `json:"municipalTaxNumber,omitempty"`
 	Status             string      `json:"status,omitempty"`
 	Type               string      `json:"type,omitempty"`
 	Address            *Address    `json:"address,omitempty"`
@@ -49,7 +49,7 @@ type Buyer struct {
 	Email              string      `json:"email,omitempty"`
 	FederalTaxNumber   json.Number `json:"federalTaxNumber,omitempty"`
 	StateTaxNumber     json.Number `json:"stateTaxNumber,omitempty"`
-	MunicipalTaxNumber json.Number `json:"municipalTaxNumber,omitempty"`
+	MunicipalTaxNumber string      `json:"municipalTaxNumber,omitempty"`
 	Status             string      `json:"status,omitempty"`
 	Type               string      `json:"type,omitempty"`
 	Address            *Address    `json:"address,omitempty"`

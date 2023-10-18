@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7c03f6f-b624-4c37-bf52-f6c7c1f6b81b" name="Default Changelist" comment="Implementei upload de certificado usando curl">
+    <list default="true" id="e7c03f6f-b624-4c37-bf52-f6c7c1f6b81b" name="Default Changelist" comment="fix MunicipalTaxNumber JsonNumber to String">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/company.go" beforeDir="false" afterPath="$PROJECT_DIR$/company.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/person.go" beforeDir="false" afterPath="$PROJECT_DIR$/person.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +45,9 @@
     "WebServerToolWindowFactoryState": "false",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "D:/Work/go/src/github.com/EduardoJaco/nfeio"
+    "last_opened_file_path": "D:/Work/go/src/github.com/EduardoJaco/nfeio",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)"
   }
 }]]></component>
   <component name="RunManager" selected="Go Test.TestIssueInvoice in github.com/seriallink/nfeio (2)">
@@ -151,7 +152,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Implementei upload de certificado usando curl" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implementei upload de certificado usando curl" />
+    <MESSAGE value="fix MunicipalTaxNumber JsonNumber to String" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix MunicipalTaxNumber JsonNumber to String" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
