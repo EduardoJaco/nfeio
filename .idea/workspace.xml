@@ -1,24 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="e7c03f6f-b624-4c37-bf52-f6c7c1f6b81b" name="Default Changelist" comment="Implementei upload de certificado usando curl">
-      <change afterPath="$PROJECT_DIR$/item.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/statetax.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/statetax_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/address_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/address_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/client_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/company.go" beforeDir="false" afterPath="$PROJECT_DIR$/company.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/company_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/company_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/error.go" beforeDir="false" afterPath="$PROJECT_DIR$/error.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invoice.go" beforeDir="false" afterPath="$PROJECT_DIR$/invoice.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invoice_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/invoice_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/methods.go" beforeDir="false" afterPath="$PROJECT_DIR$/methods.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/person.go" beforeDir="false" afterPath="$PROJECT_DIR$/person.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util.go" beforeDir="false" afterPath="$PROJECT_DIR$/util.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,90 +21,87 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" path="C:/Go" />
+  <component name="GOROOT" url="file://$USER_HOME$/scoop/apps/go/current" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="1SyzWse5Rawgh4WBWtzhieiV5LM" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="DefaultGoTemplateProperty" value="Go File" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="go.import.settings.migrated" value="true" />
-    <property name="go.sdk.automatically.set" value="true" />
-    <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
-    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="terminal" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "D:/Work/go/src/github.com/EduardoJaco/nfeio"
+  }
+}]]></component>
   <component name="RunManager" selected="Go Test.TestIssueInvoice in github.com/seriallink/nfeio (2)">
     <configuration name="TestAddStateTax in github.com/seriallink/nfeio" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nfeio" />
       <working_directory value="$PROJECT_DIR$" />
-      <framework value="gotest" />
       <kind value="PACKAGE" />
       <package value="github.com/seriallink/nfeio" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
+      <framework value="gotest" />
       <pattern value="^TestAddStateTax$" />
       <method v="2" />
     </configuration>
     <configuration name="TestDeleteStateTax in github.com/seriallink/nfeio" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nfeio" />
       <working_directory value="$PROJECT_DIR$" />
-      <framework value="gotest" />
       <kind value="PACKAGE" />
       <package value="github.com/seriallink/nfeio" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
+      <framework value="gotest" />
       <pattern value="^TestDeleteStateTax$" />
       <method v="2" />
     </configuration>
     <configuration name="TestIssueInvoice in github.com/seriallink/nfeio (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nfeio" />
       <working_directory value="$PROJECT_DIR$" />
-      <framework value="gotest" />
       <kind value="PACKAGE" />
       <package value="github.com/seriallink/nfeio" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
+      <framework value="gotest" />
       <pattern value="^TestIssueInvoice$" />
       <method v="2" />
     </configuration>
     <configuration name="TestIssueInvoice in github.com/seriallink/nfeio (2)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nfeio" />
       <working_directory value="$PROJECT_DIR$" />
-      <framework value="gotest" />
       <kind value="PACKAGE" />
       <package value="github.com/seriallink/nfeio" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
+      <framework value="gotest" />
       <pattern value="^TestIssueInvoice$" />
       <method v="2" />
     </configuration>
     <configuration name="TestIssueInvoice in github.com/seriallink/nfeio" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nfeio" />
       <working_directory value="$PROJECT_DIR$" />
-      <framework value="gotest" />
       <kind value="PACKAGE" />
       <package value="github.com/seriallink/nfeio" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
+      <framework value="gotest" />
       <pattern value="^TestIssueInvoice$" />
       <method v="2" />
     </configuration>
@@ -141,6 +127,7 @@
       </list>
     </option>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="e7c03f6f-b624-4c37-bf52-f6c7c1f6b81b" name="Default Changelist" comment="" />
@@ -160,77 +147,14 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Implementei upload de certificado usando curl" />
     <option name="LAST_COMMIT_MESSAGE" value="Implementei upload de certificado usando curl" />
   </component>
   <component name="VgoProject">
-    <integration-enabled>true</integration-enabled>
-    <proxy>direct</proxy>
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="557" y="-968" key="CommitChangelistDialog2" timestamp="1583861912479">
-      <screen x="0" y="-1080" width="1920" height="1040" />
-    </state>
-    <state x="557" y="-968" key="CommitChangelistDialog2/0.0.1536.824/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1583861912479" />
-    <state width="999" height="466" key="DebuggerActiveHint" timestamp="1583861461839">
-      <screen x="0" y="-1080" width="1920" height="1040" />
-    </state>
-    <state width="999" height="466" key="DebuggerActiveHint/0.0.1536.824/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1583861461839" />
-    <state width="1877" height="353" key="GridCell.Tab.0.bottom" timestamp="1583861729002">
-      <screen x="0" y="-1080" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="353" key="GridCell.Tab.0.bottom/0.0.1536.824/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1583861729002" />
-    <state width="1877" height="353" key="GridCell.Tab.0.center" timestamp="1583861729002">
-      <screen x="0" y="-1080" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="353" key="GridCell.Tab.0.center/0.0.1536.824/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1583861729002" />
-    <state width="1877" height="353" key="GridCell.Tab.0.left" timestamp="1583861729002">
-      <screen x="0" y="-1080" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="353" key="GridCell.Tab.0.left/0.0.1536.824/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1583861729002" />
-    <state width="1877" height="353" key="GridCell.Tab.0.right" timestamp="1583861729002">
-      <screen x="0" y="-1080" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="353" key="GridCell.Tab.0.right/0.0.1536.824/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1583861729002" />
-    <state width="1877" height="273" key="GridCell.Tab.1.bottom" timestamp="1583861482926">
-      <screen x="0" y="-1080" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="273" key="GridCell.Tab.1.bottom/0.0.1536.824/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1583861482926" />
-    <state width="1877" height="273" key="GridCell.Tab.1.center" timestamp="1583861482926">
-      <screen x="0" y="-1080" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="273" key="GridCell.Tab.1.center/0.0.1536.824/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1583861482926" />
-    <state width="1877" height="273" key="GridCell.Tab.1.left" timestamp="1583861482926">
-      <screen x="0" y="-1080" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="273" key="GridCell.Tab.1.left/0.0.1536.824/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1583861482926" />
-    <state width="1877" height="273" key="GridCell.Tab.1.right" timestamp="1583861482926">
-      <screen x="0" y="-1080" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="273" key="GridCell.Tab.1.right/0.0.1536.824/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1583861482926" />
-    <state x="755" y="-851" key="RollbackChangesDialog" timestamp="1583771783457">
-      <screen x="0" y="-1080" width="1920" height="1040" />
-    </state>
-    <state x="755" y="-851" key="RollbackChangesDialog/0.0.1536.824/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1583771783457" />
-    <state x="552" y="-829" key="Vcs.Push.Dialog.v2" timestamp="1579024881294">
-      <screen x="0" y="-1080" width="1920" height="1040" />
-    </state>
-    <state x="552" y="-829" key="Vcs.Push.Dialog.v2/0.0.1536.824/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1579024881294" />
-    <state width="971" height="531" key="XDebugger.FullValuePopup" timestamp="1583861411499">
-      <screen x="0" y="-1080" width="1920" height="1040" />
-    </state>
-    <state width="971" height="531" key="XDebugger.FullValuePopup/0.0.1536.824/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1583861411499" />
-    <state x="640" y="-826" width="640" height="532" key="find.popup" timestamp="1579626471536">
-      <screen x="0" y="-1080" width="1920" height="1040" />
-    </state>
-    <state x="640" y="-826" width="640" height="532" key="find.popup/0.0.1536.824/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1579626471536" />
-    <state x="623" y="-855" width="672" height="678" key="search.everywhere.popup" timestamp="1583860215633">
-      <screen x="0" y="-1080" width="1920" height="1040" />
-    </state>
-    <state x="623" y="-855" width="672" height="678" key="search.everywhere.popup/0.0.1536.824/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1583860215633" />
+    <settings-migrated>true</settings-migrated>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -244,11 +168,6 @@
           <url>file://$PROJECT_DIR$/company_test.go</url>
           <line>66</line>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/company.go</url>
-          <line>145</line>
-          <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/company.go</url>

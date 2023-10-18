@@ -74,7 +74,7 @@ type Company struct {
 	Email                 string             `json:"email,omitempty"`
 	FederalTaxNumber      json.Number        `json:"federalTaxNumber,omitempty"`
 	RegionalTaxNumber     json.Number        `json:"regionalTaxNumber,omitempty"`
-	MunicipalTaxNumber    json.Number        `json:"municipalTaxNumber,omitempty"`
+	MunicipalTaxNumber    string             `json:"municipalTaxNumber,omitempty"`
 	CompanyRegistryNumber json.Number        `json:"companyRegistryNumber,omitempty"`
 	TaxRegime             interface{}        `json:"taxRegime,omitempty"`
 	SpecialTaxRegime      interface{}        `json:"specialTaxRegime,omitempty"`
