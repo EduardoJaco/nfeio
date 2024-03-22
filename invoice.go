@@ -95,14 +95,14 @@ type Invoice struct {
 	BaseTaxAmount               float64                `json:"baseTaxAmount,omitempty"`
 	IssRate                     json.Number            `json:"issRate,omitempty"`
 	IssTaxAmount                float64                `json:"issTaxAmount,omitempty"`
-	IrAmountWithheld            float64                `json:"irAmountWithheld,omitempty"`
-	PisAmountWithheld           float64                `json:"pisAmountWithheld,omitempty"`
-	CofinsAmountWithheld        float64                `json:"cofinsAmountWithheld,omitempty"`
-	CsllAmountWithheld          float64                `json:"csllAmountWithheld,omitempty"`
-	InssAmountWithheld          float64                `json:"inssAmountWithheld,omitempty"`
-	IssAmountWithheld           float64                `json:"issAmountWithheld,omitempty"`
-	OthersAmountWithheld        float64                `json:"othersAmountWithheld,omitempty"`
-	AmountWithheld              float64                `json:"amountWithheld,omitempty"`
+	IrAmountWithheld            float64                `json:"irAmountWithheld"`
+	PisAmountWithheld           float64                `json:"pisAmountWithheld"`
+	CofinsAmountWithheld        float64                `json:"cofinsAmountWithheld"`
+	CsllAmountWithheld          float64                `json:"csllAmountWithheld"`
+	InssAmountWithheld          float64                `json:"inssAmountWithheld"`
+	IssAmountWithheld           float64                `json:"issAmountWithheld"`
+	OthersAmountWithheld        float64                `json:"othersAmountWithheld"`
+	AmountWithheld              float64                `json:"amountWithheld"`
 	AmountNet                   float64                `json:"amountNet,omitempty"`
 	Provider                    *Provider              `json:"provider,omitempty"`
 	Borrower                    *Borrower              `json:"borrower,omitempty"`
